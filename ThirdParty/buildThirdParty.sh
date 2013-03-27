@@ -36,7 +36,7 @@ usage() {
 	echo ""
 	echo "Usage: "`basename $0`" [-b] -c [-p] [-s]" >&2
 	echo "-b: Use beta software versions"
-	echo "-c: Remove contents of /opt/zimbra (clean)"
+	echo "-c: Remove contents of ${ZIMBRA_HOME} (clean)"
 	echo "-p: Use private CPAN mirror"
 	echo "-s: Re-sync source before building"
 	exit 2;
@@ -156,7 +156,7 @@ RELEASE=${RELEASE##*/}
 
 if [ x$CLEAN = x"no" ]; then
 	echo "WARNING: You must supply the clean option -c"
-	echo "WARNING: This will completely remove the contents of /opt/zimbra from the system"
+	echo "WARNING: This will completely remove the contents of ${ZIMBRA_HOME} from the system"
 	exit 1;
 fi
 
@@ -176,7 +176,7 @@ if [ x$PLAT = "x" ]; then
 fi
 
 if [ x$OVERRIDE = x"no" ]; then
-	askYN "Proceeding will remove /opt/zimbra.  Do you wish to continue?: " "N"
+	askYN "Proceeding will remove ${ZIMBRA_HOME}.  Do you wish to continue?: " "N"
 	if [ $response = "no" ]; then
 		echo "Exiting"
 		exit 1;
@@ -299,11 +299,11 @@ if [[ $PLAT != "MACOSX"* ]]; then
 fi
 
 if [ x"$ZIMBRA" = x"no" ]; then
-	echo "Cleaning contents of /opt/zimbra"
-	if [ -d "/opt/zimbra" ]; then
-		rm -rf /opt/zimbra/* 2>/dev/null
-		rm -rf /opt/zimbra/.* 2>/dev/null
-		mkdir -p /opt/zimbra
+	echo "Cleaning contents of ${ZIMBRA_HOME}"
+	if [ -d "${ZIMBRA_HOME}" ]; then
+		rm -rf ${ZIMBRA_HOME}/* 2>/dev/null
+		rm -rf ${ZIMBRA_HOME}/.* 2>/dev/null
+		mkdir -p ${ZIMBRA_HOME}
 	fi
 else
 	if [ -x "/home/build/scripts/setup-build.sh" ]; then
@@ -314,14 +314,14 @@ else
 	fi
 fi
 
-touch /opt/zimbra/blah 2>/dev/null
+touch ${ZIMBRA_HOME}/blah 2>/dev/null
 RC=$?
 
 if [ $RC -eq 1 ]; then
-	echo "Error: Unable to write to /opt/zimbra"
+	echo "Error: Unable to write to ${ZIMBRA_HOME}"
 	exit 1;
 else
-	rm -f /opt/zimbra/blah
+	rm -f ${ZIMBRA_HOME}/blah
 fi
 
 if [ x$PUBLIC = x"yes" ]; then
