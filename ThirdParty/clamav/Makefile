@@ -46,6 +46,7 @@ build:
 	$(CPPFLAGS) \
 	$(LDFLAGS) \
 	./configure --prefix=$(ZIMBRA_HOME)/clamav-$(CLAMAV_VERSION) --mandir=$(ZIMBRA_HOME)/clamav-$(CLAMAV_VERSION)/man \
+	--with-libbz2-prefix=$(BZIP2_PREFIX) \
 	--with-user=zimbra --with-group=zimbra --disable-zlib-vcheck --disable-gcc-vcheck --disable-clamav $(CONFIG_OPT); \
 	$(MAKE) $(MAKEARGS); $(MAKE) install)
 	-(cd $(ZIMBRA_HOME); ln -s clamav-$(CLAMAV_VERSION) clamav)
