@@ -27,6 +27,11 @@ OVERRIDE=no
 ZIMBRA=no
 MIRROR="http://cpan.yahoo.com/"
 
+if [ -z $ZIMBRA_HOME ]; then
+  echo "ZIMBRA_HOME is not defined"
+  exit 10
+fi
+
 usage() {
 	echo ""
 	echo "Usage: "`basename $0`" [-b] -c [-p] [-s]" >&2
