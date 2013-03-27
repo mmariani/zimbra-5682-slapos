@@ -42,7 +42,7 @@ my $localxml = XMLin("/opt/zimbra/conf/localconfig.xml");
 my $table = new Proc::ProcessTable;
 foreach my $p ( @{$table->table} ) {
   my ($pid,$ppid,$pgrp,$cmdline) = ($p->pid, $p->ppid, $p->pgrp, $p->cmndline);
-  if ($p->fname eq "mysqld" && $cmdline =~ /\/opt\/zimbra\/db/) {
+  if ($p->fname eq "mysqld" && $cmdline =~ m|/opt/zimbra/db|) {
   #if ($p->fname eq "mysqld") {
     addToReport("PID:$pid PPID:$ppid PGRP:$pgrp\nCMD:\t$cmdline\n\n")
       if ($p->fname eq "mysqld" && $debug);

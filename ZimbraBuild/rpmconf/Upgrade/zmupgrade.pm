@@ -5204,7 +5204,7 @@ sub upgradeLdap($) {
               print OUT "olcDatabase: {3}mdb\n";
               next;
             }
-            if ($_ =~ /^olcDbDirectory: \/opt\/zimbra\/data\/ldap\/hdb\/db/) {
+            if ($_ =~ m|^olcDbDirectory: /opt/zimbra/data/ldap/hdb/db|) {
               print OUT "olcDbDirectory: /opt/zimbra/data/ldap/mdb/db\n";
               next;
             }
@@ -5276,7 +5276,7 @@ sub upgradeLdap($) {
               print OUT "olcDatabase: {2}mdb\n";
               next;
             }
-            if ($_ =~ /^olcDbDirectory: \/opt\/zimbra\/data\/ldap\/hdb\/db/) {
+            if ($_ =~ m|^olcDbDirectory: /opt/zimbra/data/ldap/hdb/db|) {
               print OUT "olcDbDirectory: /opt/zimbra/data/ldap/mdb/db\n";
               next;
             }
