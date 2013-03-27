@@ -9,8 +9,6 @@ ifeq ($(BUILD_PLATFORM), )
 	BUILD_PLATFORM := "UNKNOWN"
 endif
 
-ZIMBRA_HOME ?= /opt/zimbra
-
 PATCH	:=
 ifdef BETA
 	include $(PHP_ROOT)/../beta_versions.def

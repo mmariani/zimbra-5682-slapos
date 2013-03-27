@@ -4,7 +4,6 @@
 SHELL	:= /bin/bash
 PERL_ROOT ?= $(shell pwd)
 P4_ROOT ?= $(shell cd $(PERL_ROOT)/../..; pwd)
-ZIMBRA_HOME ?= /opt/zimbra
 JAVA_HOME		:= /usr/local/java
 export JAVA_HOME
 TMPDIR	:= tmp

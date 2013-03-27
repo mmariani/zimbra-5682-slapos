@@ -9,8 +9,6 @@ ifeq ($(BUILD_PLATFORM), )
 	BUILD_PLATFORM := "UNKNOWN"
 endif
 
-ZIMBRA_HOME ?= /opt/zimbra
-
 PATCH	:= patch -N -g0 -p1 < ../patches/fix-configure-963.patch
 CONFIG_OPT	:=
 CPPFLAGS 	:=

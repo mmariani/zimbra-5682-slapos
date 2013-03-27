@@ -10,8 +10,6 @@ ifeq ($(BUILD_PLATFORM), )
 	BUILD_PLATFORM := "UNKNOWN"
 endif
 
-ZIMBRA_HOME ?= /opt/zimbra
-
 ifdef BETA
 	include $(MYSQL_ROOT)/../beta_versions.def
 	PATCH   := patch -g0 -N -p1 < ../patches/openssl.patch; patch -g0 -N -p1 < ../patches/apple-runpath.patch;

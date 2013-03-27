@@ -7,8 +7,6 @@ ifeq ($(BUILD_PLATFORM), )
 	BUILD_PLATFORM := "UNKNOWN"
 endif
 
-ZIMBRA_HOME ?= /opt/zimbra
-
 PATCH   := patch -g0 -N -p1 < ../patches/ipv6.patch;
 
 ifdef BETA

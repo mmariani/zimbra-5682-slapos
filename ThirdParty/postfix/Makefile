@@ -7,8 +7,6 @@ MAKEARGS ?= -j2
 
 BUILD_PLATFORM ?= $(shell sh $(P4_ROOT)/ZimbraBuild/rpmconf/Build/get_plat_tag.sh)
 
-ZIMBRA_HOME ?= /opt/zimbra
-
 PATCH	:=
 ifdef BETA
 	include $(POSTFIX_ROOT)/../beta_versions.def

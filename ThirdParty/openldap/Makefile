@@ -10,7 +10,6 @@ endif
 
 #MAKEARGS ?= -j2 DEFINES="-DCHECK_CSN -DSLAP_SCHEMA_EXPOSE -DMDB_DEBUG=3"
 MAKEARGS ?= -j2 DEFINES="-DCHECK_CSN -DSLAP_SCHEMA_EXPOSE"
-ZIMBRA_HOME ?= /opt/zimbra
 
 PATCH	:= patch -g0 -N -p1 < ../patches/ITS7536.patch; patch -g0 -N -p1 < ../patches/ITS7542.patch; patch -g0 -N -p1 < ../patches/ITS7540.patch;
 

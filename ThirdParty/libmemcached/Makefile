@@ -9,7 +9,6 @@ ifeq ($(BUILD_PLATFORM), )
 endif
 
 MAKEARGS ?= -j2
-ZIMBRA_HOME ?= /opt/zimbra
 
 PATCH	:=
 

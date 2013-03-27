@@ -9,8 +9,6 @@ ifeq ($(BUILD_PLATFORM), )
 	BUILD_PLATFORM := "UNKNOWN"
 endif
 
-ZIMBRA_HOME ?= /opt/zimbra
-
 ifdef BETA
 	include $(LIBTOOL_ROOT)/../beta_versions.def
 else

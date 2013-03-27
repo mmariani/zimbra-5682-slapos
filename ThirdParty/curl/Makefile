@@ -6,8 +6,6 @@ SED ?= sed
 
 BUILD_PLATFORM ?= $(shell sh $(P4_ROOT)/ZimbraBuild/rpmconf/Build/get_plat_tag.sh)
 
-ZIMBRA_HOME ?= /opt/zimbra
-
 ifdef BETA
 	include $(CURL_ROOT)/../beta_versions.def
 	PATCH	:= patch -N -g0 -p1 < ../patches/krb5-7200.patch; patch -N -g0 -p1 < ../patches/lwp-fix.patch;
