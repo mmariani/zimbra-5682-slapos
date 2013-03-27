@@ -50,7 +50,7 @@ WGET    := $(shell which wget)
 MAKE    := $(shell which make)
 SED     := $(shell which sed)
 UNZIP	:= $(shell which unzip)
-CMIRROR	?= http://zre-matrix.eng.vmware.com/cpan/
+CMIRROR	?= http://cpan.yahoo.com/
 
 BDB_INCLUDE	:= $(ZIMBRA_HOME)/bdb-$(BDB_VERSION)/include
 MYSQL_INCLUDE	:= $(ZIMBRA_HOME)/mysql/include/mysql
