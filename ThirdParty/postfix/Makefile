@@ -29,7 +29,7 @@ MYSQL_CLIENT_VERSION ?= standard-$(MYSQL_VERSION_STRING)-clientlibs
 
 SYSTEM_LIB := /usr/lib
 
-LD_RUN_PATH := $(ZIMBRA_HOME)/lib:$(ZIMBRA_HOME)/mysql-$(MYSQL_VERSION)/lib:$(ZIMBRA_HOME)/openldap-$(LDAP_VERSION)/lib:$(ZIMBRA_HOME)/openssl-$(OPENSSL_VERSION)/lib:$(ZIMBRA_HOME)/cyrus-sasl-$(CYRUS_VERSION)/lib:$(ZIMBRA_HOME)/bdb-$(BDB_VERSION)/lib
+LD_RUN_PATH := $(ZIMBRA_HOME)/lib:$(ZIMBRA_HOME)/mysql-$(MYSQL_VERSION)/lib:$(ZIMBRA_HOME)/openldap-$(LDAP_VERSION)/lib:$(ZIMBRA_HOME)/openssl-$(OPENSSL_VERSION)/lib:$(ZIMBRA_HOME)/cyrus-sasl-$(CYRUS_VERSION)/lib:$(ZIMBRA_HOME)/bdb-$(BDB_VERSION)/lib:$(PCRE_PREFIX)/lib
 MYSQL_INC := $(ZIMBRA_HOME)/mysql-$(MYSQL_VERSION)/include
 MYSQL_LIB := $(ZIMBRA_HOME)/mysql-$(MYSQL_VERSION)/lib
 
