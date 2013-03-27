@@ -13,8 +13,8 @@ else
 	include $(NGINX_ROOT)/../versions.def
 endif
 
-PCREINC	:=
-PCRELIB	:=
+PCREINC        := -I$(PCRE_PREFIX)/include
+PCRELIB        := -L$(PCRE_PREFIX)/lib
 
 ifeq (MACOSX,$(findstring MACOSX,$(BUILD_PLATFORM)))
 	PCREINC	:= -I$(ZIMBRA_HOME)/include
@@ -67,7 +67,7 @@ build:
 	    --add-module=$(KEEPALIVE_SOURCE) \
             --add-module=$(CHUNKIN_SOURCE);)
 	(cd nginx-$(NGINX_VERSION)-zimbra; \
-	LD_RUN_PATH="$(CYRUS_LIB_DIR):$(OPENSSL_LIB_DIR)" make; make install)
+	LD_RUN_PATH="$(CYRUS_LIB_DIR):$(OPENSSL_LIB_DIR):$(PCRELIB)" make; make install)
 	(cd $(ZIMBRA_HOME); ln -s $(NGINX_INSTALL) nginx)
 
 tar:
