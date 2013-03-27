@@ -26,8 +26,8 @@ DIRS	:= openssl \
 	libxml2 \
 	heimdal \
 	curl \
-	cyrus-sasl \
 	libtool \
+	cyrus-sasl \
 	openldap \
 	rsync \
 	tcmalloc
@@ -38,8 +38,8 @@ DIRS := openssl \
 	libxml2 \
 	heimdal \
 	curl \
-	cyrus-sasl \
 	libtool \
+	cyrus-sasl \
 	openldap \
 	aspell \
 	sendmail \
