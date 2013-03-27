@@ -21,10 +21,12 @@ fi
 
 cd ${cyrus_src}
 rm config/ltconfig config/libtool.m4
-if [ -x /usr/bin/libtoolize ]; then
-	LIBTOOLIZE=/usr/bin/libtoolize
+if [ -x ${ZIMBRA_HOME}/libtool/bin/libtoolize ]; then
+        LIBTOOLIZE=${ZIMBRA_HOME}/libtool/bin/libtoolize
 else
-	if [ -x /opt/local/bin/glibtoolize ]; then
+        if [ -x /usr/bin/libtoolize ]; then
+               LIBTOOLIZE=/usr/bin/libtoolize
+        elif [ -x /opt/local/bin/glibtoolize ]; then
 		export CPPFLAGS=-DDARWIN
 		LIBTOOLIZE=/opt/local/bin/glibtoolize
 	elif [ -x /usr/bin/glibtoolize ]; then
@@ -36,7 +38,7 @@ else
 	fi
 fi
 $LIBTOOLIZE -f -c
-aclocal -I config -I cmulocal
+aclocal -I config -I cmulocal --system-acdir=${ZIMBRA_HOME}/libtool/share/aclocal
 automake -a -c -f
 autoheader
 autoconf -f
@@ -44,7 +46,7 @@ autoconf -f
 cd saslauthd
 rm config/ltconfig
 $LIBTOOLIZE -f -c
-aclocal -I config -I ../cmulocal -I ../config
+aclocal -I config -I ../cmulocal -I ../config --system-acdir=${ZIMBRA_HOME}/libtool/share/aclocal
 automake -a -c -f
 autoheader
 autoconf -f
