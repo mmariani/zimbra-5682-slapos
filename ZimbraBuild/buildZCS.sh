@@ -20,6 +20,7 @@ PATHDIR=`pwd`
 BUILDTHIRDPARTY=no
 BUILDTYPE=foss
 PMIRROR=no
+TPOVERRIDE=no
 
 usage() {
 	echo ""
@@ -52,6 +53,10 @@ while [ $# -gt 0 ]; do
 			BUILDTHIRDPARTY=yes
 			shift;
 			;;
+                --tpoverride)
+                        TPOVERRIDE=yes
+                        shift;
+                        ;;
 		*)
 			echo "Usage: $0 [-t]"
 			exit 1;
@@ -191,6 +196,9 @@ fi
 TPOPTS="-c"
 if [ x$PMIRROR = x"yes" ]; then
 	TPOPTS="$TPOPTS -p"
+fi
+if [ x$TPOVERRIDE = x"yes" ]; then
+       TPOPTS="$TPOPTS -o"
 fi
 
 if [ x$BUILDTHIRDPARTY = x"yes" ]; then
