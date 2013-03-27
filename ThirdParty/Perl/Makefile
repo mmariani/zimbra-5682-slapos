@@ -4,7 +4,7 @@
 SHELL	:= /bin/bash
 PERL_ROOT ?= $(shell pwd)
 P4_ROOT ?= $(shell cd $(PERL_ROOT)/../..; pwd)
-JAVA_HOME		:= /usr/local/java
+JAVA_HOME              := $(JAVA_HOME)
 export JAVA_HOME
 TMPDIR	:= tmp
 BUILD_PLATFORM ?= $(shell sh $(P4_ROOT)/ZimbraBuild/rpmconf/Build/get_plat_tag.sh)
