@@ -58,43 +58,43 @@ cd ..
 
 sed -i.bak 's/-lRSAglue //' configure
 if [ $platform = "Darwin" ]; then
-LIBS="/opt/zimbra/libxml2/lib/libxml2.a" CFLAGS="-D_REENTRANT -g -O2 -I/opt/zimbra/libxml2/include/libxml2" ./configure --enable-zimbra --prefix=/opt/zimbra/${cyrus_src} \
-            --with-saslauthd=/opt/zimbra/data/sasl2/state \
-            --with-plugindir=/opt/zimbra/${cyrus_src}/lib/sasl2 \
+LIBS="${ZIMBRA_HOME}/libxml2/lib/libxml2.a" CFLAGS="-D_REENTRANT -g -O2 -I${ZIMBRA_HOME}/libxml2/include/libxml2" ./configure --enable-zimbra --prefix=${ZIMBRA_HOME}/${cyrus_src} \
+            --with-saslauthd=${ZIMBRA_HOME}/data/sasl2/state \
+            --with-plugindir=${ZIMBRA_HOME}/${cyrus_src}/lib/sasl2 \
             --enable-static=no \
             --enable-shared \
             --with-dblib=no \
             --with-devrandom=/dev/urandom \
-            --with-openssl=/opt/zimbra/openssl-${openssl_version} \
-            --with-libcurl=/opt/zimbra/curl-${curl_version} \
+            --with-openssl=${ZIMBRA_HOME}/openssl-${openssl_version} \
+            --with-libcurl=${ZIMBRA_HOME}/curl-${curl_version} \
             --with-gss_impl=heimdal \
-            --enable-gssapi=/opt/zimbra/heimdal-${heimdal_version} \
-            --with-libxml2=/opt/zimbra/libxml2-${xml2_version}/bin/xml2-config \
-            --with-configdir=/opt/zimbra/conf/sasl2 \
+            --enable-gssapi=${ZIMBRA_HOME}/heimdal-${heimdal_version} \
+            --with-libxml2=${ZIMBRA_HOME}/libxml2-${xml2_version}/bin/xml2-config \
+            --with-configdir=${ZIMBRA_HOME}/conf/sasl2 \
             --enable-login
 else
 	if [ $build_platform = "UBUNTU12_64" ]; then
-		xmllib='/opt/zimbra/libxml2/lib/libxml2.a -lz -lm'
+                xmllib="${ZIMBRA_HOME}/libxml2/lib/libxml2.a -lz -lm"
 	else
-		xmllib='/opt/zimbra/libxml2/lib/libxml2.a'
+                xmllib="${ZIMBRA_HOME}/libxml2/lib/libxml2.a"
 	fi
-LIBS="${xmllib}" CFLAGS="-D_REENTRANT -g -O2 -I/opt/zimbra/libxml2/include/libxml2" ./configure --enable-zimbra --prefix=/opt/zimbra/${cyrus_src} \
-            --with-saslauthd=/opt/zimbra/data/sasl2/state \
-            --with-plugindir=/opt/zimbra/${cyrus_src}/lib/sasl2 \
+LIBS="${xmllib}" CFLAGS="-D_REENTRANT -g -O2 -I${ZIMBRA_HOME}/libxml2/include/libxml2" ./configure --enable-zimbra --prefix=${ZIMBRA_HOME}/${cyrus_src} \
+            --with-saslauthd=${ZIMBRA_HOME}/data/sasl2/state \
+            --with-plugindir=${ZIMBRA_HOME}/${cyrus_src}/lib/sasl2 \
             --with-dblib=no \
             --with-devrandom=/dev/urandom \
-            --with-openssl=/opt/zimbra/openssl-${openssl_version} \
-            --with-libcurl=/opt/zimbra/curl-${curl_version} \
+            --with-openssl=${ZIMBRA_HOME}/openssl-${openssl_version} \
+            --with-libcurl=${ZIMBRA_HOME}/curl-${curl_version} \
             --with-gss_impl=heimdal \
-            --enable-gssapi=/opt/zimbra/heimdal-${heimdal_version} \
-            --with-libxml2=/opt/zimbra/libxml2-${xml2_version}/bin/xml2-config \
+            --enable-gssapi=${ZIMBRA_HOME}/heimdal-${heimdal_version} \
+            --with-libxml2=${ZIMBRA_HOME}/libxml2-${xml2_version}/bin/xml2-config \
             --with-lib-subdir=lib \
-            --with-configdir=/opt/zimbra/conf/sasl2 \
+            --with-configdir=${ZIMBRA_HOME}/conf/sasl2 \
             --enable-login
 fi
 if [ $platform = "Darwin" ]; then
      sed -i .bak -e 's/\_la_LDFLAGS)/_la_LDFLAGS) $(AM_LDFLAGS)/' plugins/Makefile
-     sed -i .bak -e "s|-L/opt/zimbra/libxml2-${xml2_version}/lib -lxml2||" saslauthd/Makefile
+     sed -i .bak -e "s|-L${ZIMBRA_HOME}/libxml2-${xml2_version}/lib -lxml2||" saslauthd/Makefile
 elif [ $build_platform = "F7" -o $build_platform -o "DEBIAN4.0" ]; then
      sed -i.bak -e 's/\_la_LDFLAGS)/_la_LDFLAGS) $(AM_LDFLAGS)/' plugins/Makefile
 fi
