@@ -21,9 +21,9 @@ MYSQL_LIB_DIR := $(ZIMBRA_HOME)/mysql/lib
 DSPAM_TGZ_TARGET := \
 	$(P4_ROOT)/ThirdPartyBuilds/$(BUILD_PLATFORM)/dspam/dspam-$(DSPAM_VERSION).tgz
 
-LDFLAGS	:= LDFLAGS="-L$(ZIMBRA_HOME)/mysql/lib -R$(ZIMBRA_HOME)/myqsl/lib"
+LDFLAGS	:= LDFLAGS="-L$(ZIMBRA_HOME)/mysql/lib -R$(ZIMBRA_HOME)/mysql/lib"
 ifeq ($(BUILD_PLATFORM), UBUNTU12_64)
-LDFLAGS	:= LDFLAGS="-L$(ZIMBRA_HOME)/mysql/lib -Wl,-rpath,$(ZIMBRA_HOME)/myqsl/lib"
+LDFLAGS	:= LDFLAGS="-L$(ZIMBRA_HOME)/mysql/lib -Wl,-rpath,$(ZIMBRA_HOME)/mysql/lib"
 endif
 
 files	:= $(wildcard src/dspam-$(DSPAM_VERSION).tar.gz)
