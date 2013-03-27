@@ -21,8 +21,8 @@ POSTFIX_TGZ_TARGET := \
 BDB_PATCH	:= patch -g0 -p1 < ../patches/postfix-zimbra-bdb.patch;
 
 PCRE_DEF := -DHAS_PCRE
-PCRE_INCLUDE := -I/usr/include/pcre
-PCRE_LIB := -lpcre
+PCRE_INCLUDE := -I$(PCRE_PREFIX)/include
+PCRE_LIB := -L$(PCRE_PREFIX)/lib -lpcre
 
 MYSQL_VERSION ?= standard-$(MYSQL_VERSION_STRING)-pc-linux-gnu-i686-glibc23
 MYSQL_CLIENT_VERSION ?= standard-$(MYSQL_VERSION_STRING)-clientlibs
