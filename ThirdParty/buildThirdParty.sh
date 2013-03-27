@@ -256,47 +256,52 @@ do
 	fi
 done
 
-echo "Checking for prerequisite libraries"
-for req in $LIBREQ
-do
-	echo "	Checking $req"
-	if [ ! -f "$LIBDIR/$req" ]; then
-		echo "Error: $LIBDIR/$req not found"
-		exit 1;
-	fi
-done
-
-if [[ $PLAT != "MACOSX"* ]]; then
-	for req in $NONMACLIB
-	do
-		echo "	Checking $req"
-		if [ ! -f "$LIBDIR/$req" ]; then
-			echo "Error: $LIBDIR/$req not found"
-			exit 1;
-		fi
-	done
-fi
-
-echo "Checking for prerequisite headers"
-for req in $HEADERREQ
-do
-	echo "	Checking $req"
-	if [ ! -f "/usr/include/$req" ]; then
-		echo "Error: /usr/include/$req not found"
-		exit 1;
-	fi
-done
-
-if [[ $PLAT != "MACOSX"* ]]; then
-	for req in $NONMACHEADER
-	do
-		echo "	Checking $req"
-		if [ ! -f "/usr/include/$req" ]; then
-			echo "Error: /usr/include/$req not found"
-			exit 1;
-		fi
-	done
-fi
+#################
+# XXX disabled checks that don't work inside buildout
+#################
+#
+#echo "Checking for prerequisite libraries"
+#for req in $LIBREQ
+#do
+#	echo "	Checking $req"
+#	if [ ! -f "$LIBDIR/$req" ]; then
+#		echo "Error: $LIBDIR/$req not found"
+#		exit 1;
+#	fi
+#done
+#
+#if [[ $PLAT != "MACOSX"* ]]; then
+#	for req in $NONMACLIB
+#	do
+#		echo "	Checking $req"
+#		if [ ! -f "$LIBDIR/$req" ]; then
+#			echo "Error: $LIBDIR/$req not found"
+#			exit 1;
+#		fi
+#	done
+#fi
+#
+#echo "Checking for prerequisite headers"
+#for req in $HEADERREQ
+#do
+#	echo "	Checking $req"
+#	if [ ! -f "/usr/include/$req" ]; then
+#		echo "Error: /usr/include/$req not found"
+#		exit 1;
+#	fi
+#done
+#
+#if [[ $PLAT != "MACOSX"* ]]; then
+#	for req in $NONMACHEADER
+#	do
+#		echo "	Checking $req"
+#		if [ ! -f "/usr/include/$req" ]; then
+#			echo "Error: /usr/include/$req not found"
+#			exit 1;
+#		fi
+#	done
+#fi
+#################
 
 if [ x"$ZIMBRA" = x"no" ]; then
 	echo "Cleaning contents of ${ZIMBRA_HOME}"
