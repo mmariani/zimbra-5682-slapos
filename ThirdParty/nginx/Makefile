@@ -17,8 +17,8 @@ PCREINC	:=
 PCRELIB	:=
 
 ifeq (MACOSX,$(findstring MACOSX,$(BUILD_PLATFORM)))
-	PCREINC	:= -I/opt/zimbra/include
-	PCRELIB	:= -L/opt/zimbra/lib
+	PCREINC	:= -I$(ZIMBRA_HOME)/include
+	PCRELIB	:= -L$(ZIMBRA_HOME)/lib
 endif
 
 NGINX_TGZ_TARGET := $(P4_ROOT)/ThirdPartyBuilds/$(BUILD_PLATFORM)/nginx/nginx-$(NGINX_VERSION)-zimbra.tgz
@@ -31,8 +31,8 @@ KEEPALIVE_TGZ_SRC := $(NGINX_ROOT)/src/nviennot-nginx-tcp-keepalive-4d7186d.tar.
 KEEPALIVE_SOURCE := $(NGINX_ROOT)/nviennot-nginx-tcp-keepalive
 
 WITH_CC_OPT := -g \
-	-I/opt/zimbra/cyrus-sasl-$(CYRUS_VERSION)/include \
-	-I/opt/zimbra/openssl-$(OPENSSL_VERSION)/include \
+	-I$(ZIMBRA_HOME)/cyrus-sasl-$(CYRUS_VERSION)/include \
+	-I$(ZIMBRA_HOME)/openssl-$(OPENSSL_VERSION)/include \
 	$(PCREINC)
 
 WITH_LD_OPT :=	-L$(CYRUS_LIB_DIR) \
@@ -57,8 +57,8 @@ build:
             --with-mail \
             --with-mail-sasl \
             --with-mail_ssl_module \
-            --error-log-path=/opt/zimbra/log/nginx.log \
-            --http-log-path=/opt/zimbra/log/nginx.access.log \
+            --error-log-path=$(ZIMBRA_HOME)/log/nginx.log \
+            --http-log-path=$(ZIMBRA_HOME)/log/nginx.access.log \
             --http-client-body-temp-path=$(ZIMBRA_HOME)/data/tmp/nginx/client \
             --http-proxy-temp-path=$(ZIMBRA_HOME)/data/tmp/nginx/proxy \
             --http-fastcgi-temp-path=$(ZIMBRA_HOME)/data/tmp/nginx/fastcgi \

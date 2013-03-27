@@ -58,10 +58,10 @@ build:
 	$(LDFLAGS) \
 	CFLAGS="-g -O2" \
 	./configure --prefix=$(ZIMBRA_HOME)/curl-$(CURL_VERSION) --disable-ldap --disable-ldaps \
-		--with-gssapi=/opt/zimbra/heimdal-$(HEIMDAL_VERSION) \
-		--with-ssl=/opt/zimbra/openssl-$(OPENSSL_VERSION) \
+		--with-gssapi=$(ZIMBRA_HOME)/heimdal-$(HEIMDAL_VERSION) \
+		--with-ssl=$(ZIMBRA_HOME)/openssl-$(OPENSSL_VERSION) \
 		--without-gnutls \
-		--with-ca-bundle=/opt/zimbra/curl-$(CURL_VERSION)/share/curl/ca-bundle.crt \
+		--with-ca-bundle=$(ZIMBRA_HOME)/curl-$(CURL_VERSION)/share/curl/ca-bundle.crt \
 		--with-zlib=$(LIB_DIR) \
 		--with-libidn=$(LIB_DIR))
 	(cd curl-$(CURL_VERSION);  LD_RUN_PATH=$(OPENSSL_LIB_DIR):$(HEIMDAL_LIB_DIR):$(CURL_LIB_DIR) $(MAKE) $(MAKEARGS))

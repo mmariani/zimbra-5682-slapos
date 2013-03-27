@@ -18,7 +18,7 @@ else
 	PATCH	:= 
 endif
 
-SED := sed -i .bak -e 's/-lxml2/\/opt\/zimbra\/libxml2-$(XML_VERSION)\/lib\/libxml2.a/g' Makefile
+SED := sed -i .bak -e 's|-lxml2|$(ZIMBRA_HOME)/libxml2-$(XML_VERSION)/lib/libxml2.a|g' Makefile
 
 PHP_TGZ_TARGET := \
 	$(P4_ROOT)/ThirdPartyBuilds/$(BUILD_PLATFORM)/php/php-$(PHP_VERSION).tgz
@@ -34,7 +34,7 @@ build:
 	tar xfj src/php-$(PHP_VERSION).tar.bz2
 	(cd php-$(PHP_VERSION); \
 	$(PATCH) $(ACEXE) CFLAGS="-g -O2" \
-	./configure --prefix=/opt/zimbra/php-$(PHP_VERSION) --with-apxs2=/opt/zimbra/httpd-$(HTTPD_VERSION)/bin/apxs --with-config-file-path=/opt/zimbra/conf --with-pspell=/opt/zimbra/aspell-$(ASPELL_VERSION) --with-libxml-dir=/opt/zimbra/libxml2-$(XML_VERSION); \
+	./configure --prefix=$(ZIMBRA_HOME)/php-$(PHP_VERSION) --with-apxs2=$(ZIMBRA_HOME)/httpd-$(HTTPD_VERSION)/bin/apxs --with-config-file-path=$(ZIMBRA_HOME)/conf --with-pspell=$(ZIMBRA_HOME)/aspell-$(ASPELL_VERSION) --with-libxml-dir=$(ZIMBRA_HOME)/libxml2-$(XML_VERSION); \
 	$(SED); \
 	$(MAKE) $(MAKEARGS); \
 	$(MAKE) install)
@@ -43,7 +43,7 @@ clean:
 	rm -rf php-$(PHP_VERSION)
 
 allclean: clean
-	rm -rf /opt/zimbra/php-$(PHP_VERSION)
+	rm -rf $(ZIMBRA_HOME)/php-$(PHP_VERSION)
 	rm -f $(PHP_TGZ_TARGET)
 
 tar: $(P4_ROOT)/ThirdPartyBuilds/$(BUILD_PLATFORM)/php

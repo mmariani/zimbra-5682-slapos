@@ -26,8 +26,8 @@ POPT_INCLUDE	:=
 POPT_LDFLAGS	:=
 
 ifeq (MACOSXx86,$(findstring MACOSXx86,$(BUILD_PLATFORM)))
-	POPT_INCLUDE := CPPFLAGS="-I/opt/zimbra/include"
-	POPT_LDFLAGS := LDFLAGS="-L/opt/zimbra/lib"
+	POPT_INCLUDE := CPPFLAGS="-I$(ZIMBRA_HOME)/include"
+	POPT_LDFLAGS := LDFLAGS="-L$(ZIMBRA_HOME)/lib"
 endif
 
 build: $(RSYNC_NAME)-$(RSYNC_VERSION)

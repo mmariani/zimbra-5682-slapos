@@ -36,7 +36,7 @@ build:
 	LIBEVENT_CPPFLAGS="-I$(ZIMBRA_HOME)/memcached/include" \
 	LIBEVENT_LDFLAGS="-L$(ZIMBRA_HOME)/memcached/lib" \
 	./configure --prefix=$(ZIMBRA_HOME)/libmemcached-$(LIBMCD_VERSION) \
-	--with-memcached=/opt/zimbra/memcached; \
+	--with-memcached=$(ZIMBRA_HOME)/memcached; \
 	$(MAKE) $(MAKEARGS); \
 	$(MAKE) install STRIP="")
 	(cd $(ZIMBRA_HOME); ln -s libmemcached-$(LIBMCD_VERSION) libmemcached)

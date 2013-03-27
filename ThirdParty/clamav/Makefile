@@ -20,8 +20,8 @@ else
 	include $(CLAMAV_ROOT)/../versions.def
 endif
 
-CPPFLAGS	:= CPPFLAGS="-I/opt/zimbra/sendmail-$(SENDMAIL_VERSION)/include"
-LDFLAGS	:= LDFLAGS="-L/opt/zimbra/sendmail-$(SENDMAIL_VERSION)/lib"
+CPPFLAGS	:= CPPFLAGS="-I$(ZIMBRA_HOME)/sendmail-$(SENDMAIL_VERSION)/include"
+LDFLAGS	:= LDFLAGS="-L$(ZIMBRA_HOME)/sendmail-$(SENDMAIL_VERSION)/lib"
 CONFIG_OPT	:= --enable-milter
 CLAMAV_TGZ_TARGET := \
 $(P4_ROOT)/ThirdPartyBuilds/$(BUILD_PLATFORM)/clamav/clamav-$(CLAMAV_VERSION).tgz
@@ -45,7 +45,7 @@ build:
 	CFLAGS="-g -O2" \
 	$(CPPFLAGS) \
 	$(LDFLAGS) \
-	./configure --prefix=/opt/zimbra/clamav-$(CLAMAV_VERSION) --mandir=/opt/zimbra/clamav-$(CLAMAV_VERSION)/man \
+	./configure --prefix=$(ZIMBRA_HOME)/clamav-$(CLAMAV_VERSION) --mandir=$(ZIMBRA_HOME)/clamav-$(CLAMAV_VERSION)/man \
 	--with-user=zimbra --with-group=zimbra --disable-zlib-vcheck --disable-gcc-vcheck --disable-clamav $(CONFIG_OPT); \
 	$(MAKE) $(MAKEARGS); $(MAKE) install)
 	-(cd $(ZIMBRA_HOME); ln -s clamav-$(CLAMAV_VERSION) clamav)

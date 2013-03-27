@@ -41,7 +41,7 @@ build:
 	$(PATCH) \
 	CFLAGS="-g -O2" ./configure --prefix=$(ZIMBRA_HOME)/memcached-$(MEMCACHED_VERSION) \
 	--with-libevent=$(ZIMBRA_HOME)/memcached-$(MEMCACHED_VERSION); \
-	LD_RUN_PATH=/opt/zimbra/memcached/lib make; make install)
+	LD_RUN_PATH=$(ZIMBRA_HOME)/memcached/lib make; make install)
 	ln -s $(MEMCACHED_INSTALL) $(ZIMBRA_HOME)/memcached
 
 tar:

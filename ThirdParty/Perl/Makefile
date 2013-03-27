@@ -405,7 +405,7 @@ build:
 		cp $(PERL_ROOT)/$$lib.tar.gz $(TMPDIR); \
 		(cd $(TMPDIR); tar xfz $$lib.tar.gz; cd $$lib; \
 		$(PERL) -I$(DEST_LIB_DIR) Makefile.PL PREFIX=$(DEST_DIR) LIB=$(DEST_LIB_DIR) --ssl --nocatchstderr \
-			--libs="-L$(ZIMBRA_HOME)/mysql/lib -L/opt/zimbra/openssl/lib -lmysqlclient -lpthread -lz -lm -lrt -lssl -lcrypto -ldl" \
+			--libs="-L$(ZIMBRA_HOME)/mysql/lib -L$(ZIMBRA_HOME)/openssl/lib -lmysqlclient -lpthread -lz -lm -lrt -lssl -lcrypto -ldl" \
 			--mysql_config="$(ZIMBRA_HOME)/mysql/bin/mysql_config"; \
 		$(SED) -i .bak -e 's#-arch x86_64 -arch i386 -arch ppc -bundle -undefined dynamic_lookup -L/usr/local/lib#-arch x86_64 -bundle -undefined dynamic_lookup#' Makefile; \
 		$(SED) -i .bak -e 's#-arch x86_64 -arch i386 -arch ppc -L/usr/local/lib#-arch x86_64#' Makefile; \
@@ -413,7 +413,7 @@ build:
 		$(SED) -i .bak -e 's#-arch x86_64 -arch i386 -bundle -undefined dynamic_lookup -L/usr/local/lib -fstack-protector#-arch x86_64 -bundle -undefined dynamic_lookup -fstack-protector#' Makefile; \
 		$(SED) -i .bak -e 's#-arch x86_64 -arch i386 -fstack-protector -L/usr/local/lib#-arch x86_64 -fstack-protector#' Makefile; \
 		$(SED) -i .bak -e 's#-arch x86_64 -arch i386 -g -pipe -fno-common -DPERL_DARWIN -fno-strict-aliasing -fstack-protector -I/usr/local/include#-arch x86_64 -g -pipe -fno-common -DPERL_DARWIN -fno-strict-aliasing -fstack-protector#' Makefile; \
-		LD_RUN_PATH=/opt/zimbra/lib:/opt/zimbra/mysql/lib:/opt/zimbra/openssl/lib $(MAKE); $(MAKE) install;) >> $(LOGFILE) 2>&1; \
+		LD_RUN_PATH=$(ZIMBRA_HOME)/lib:$(ZIMBRA_HOME)/mysql/lib:$(ZIMBRA_HOME)/openssl/lib $(MAKE); $(MAKE) install;) >> $(LOGFILE) 2>&1; \
 		if [ $$? -ne 0 ]; then  echo "FAILED.";  else  echo "done.";  fi \
 	done
 
@@ -431,9 +431,9 @@ build:
 		echo -n "Compiling perl lib $$lib" ...; \
 		cp $(PERL_ROOT)/$$lib.tar.gz $(TMPDIR); \
 		(cd $(TMPDIR); tar xzf $$lib.tar.gz; cd $$lib; \
-			$(PERL) -I$(DEST_LIB_DIR) Makefile.PL PREFIX=$(ZIMBRA_HOME)/zimbramon LIB=$(ZIMBRA_HOME)/zimbramon/lib DATADIR=$(ZIMBRA_HOME)/conf/spamassassin CONFDIR=/opt/zimbra/conf/spamassassin LOCALSTATEDIR=$(ZIMBRA_HOME)/data/spamassassin; \
+			$(PERL) -I$(DEST_LIB_DIR) Makefile.PL PREFIX=$(ZIMBRA_HOME)/zimbramon LIB=$(ZIMBRA_HOME)/zimbramon/lib DATADIR=$(ZIMBRA_HOME)/conf/spamassassin CONFDIR=$(ZIMBRA_HOME)/conf/spamassassin LOCALSTATEDIR=$(ZIMBRA_HOME)/data/spamassassin; \
 			$(MAKE); $(MAKE) install DESTDIR=$(DEST_DIR); \
-			cp -R $(DEST_DIR)/opt/zimbra/zimbramon/* $(DEST_DIR); \
+			cp -R $(DEST_DIR)$(ZIMBRA_HOME)/zimbramon/* $(DEST_DIR); \
 			rm -rf $(DEST_DIR)/opt;) >> $(LOGFILE) 2>&1; \
 		if [ $$? -ne 0 ]; then  echo "FAILED.";  else  echo "done.";  fi \
 	done
@@ -442,7 +442,7 @@ build:
 		echo -n "Compiling perl lib $$lib ..."; \
 		cp $(PERL_ROOT)/$$lib.tar.gz $(TMPDIR); \
 		(cd $(TMPDIR); tar xzf $$lib.tar.gz; cd $$lib; \
-			$(SED) -i .bak -e 's#/usr/lib/sendmail /usr/sbin/sendmail#/usr/lib/sendmail /usr/sbin/sendmail /opt/zimbra/postfix/sbin/sendmail#' lib/Swatch/Actions.pm; \
+			$(SED) -i .bak -e 's#/usr/lib/sendmail /usr/sbin/sendmail#/usr/lib/sendmail /usr/sbin/sendmail $(ZIMBRA_HOME)/postfix/sbin/sendmail#' lib/Swatch/Actions.pm; \
 			rm -f lib/Swatch/Actions.pm.bak; \
 			$(PERL) -I$(DEST_LIB_DIR) Makefile.PL PREFIX=$(DEST_DIR) LIB=$(DEST_LIB_DIR); \
 			$(MAKE); $(MAKE) install;) >> $(LOGFILE) 2>&1; \

@@ -14,8 +14,8 @@ else
 	include $(POSTFIX_ROOT)/../versions.def
 endif
 
-DBINC := -I/opt/zimbra/bdb-$(BDB_VERSION)/include
-DBLIB := -L/opt/zimbra/bdb-$(BDB_VERSION)/lib -ldb
+DBINC := -I$(ZIMBRA_HOME)/bdb-$(BDB_VERSION)/include
+DBLIB := -L$(ZIMBRA_HOME)/bdb-$(BDB_VERSION)/lib -ldb
 POSTFIX_TGZ_TARGET := \
 	$(P4_ROOT)/ThirdPartyBuilds/$(BUILD_PLATFORM)/postfix/postfix-$(POSTFIX_VERSION).tgz
 BDB_PATCH	:= patch -g0 -p1 < ../patches/postfix-zimbra-bdb.patch;
@@ -29,9 +29,9 @@ MYSQL_CLIENT_VERSION ?= standard-$(MYSQL_VERSION_STRING)-clientlibs
 
 SYSTEM_LIB := /usr/lib
 
-LD_RUN_PATH := /opt/zimbra/lib:/opt/zimbra/mysql-$(MYSQL_VERSION)/lib:/opt/zimbra/openldap-$(LDAP_VERSION)/lib:/opt/zimbra/openssl-$(OPENSSL_VERSION)/lib:/opt/zimbra/cyrus-sasl-$(CYRUS_VERSION)/lib:/opt/zimbra/bdb-$(BDB_VERSION)/lib
-MYSQL_INC := /opt/zimbra/mysql-$(MYSQL_VERSION)/include
-MYSQL_LIB := /opt/zimbra/mysql-$(MYSQL_VERSION)/lib
+LD_RUN_PATH := $(ZIMBRA_HOME)/lib:$(ZIMBRA_HOME)/mysql-$(MYSQL_VERSION)/lib:$(ZIMBRA_HOME)/openldap-$(LDAP_VERSION)/lib:$(ZIMBRA_HOME)/openssl-$(OPENSSL_VERSION)/lib:$(ZIMBRA_HOME)/cyrus-sasl-$(CYRUS_VERSION)/lib:$(ZIMBRA_HOME)/bdb-$(BDB_VERSION)/lib
+MYSQL_INC := $(ZIMBRA_HOME)/mysql-$(MYSQL_VERSION)/include
+MYSQL_LIB := $(ZIMBRA_HOME)/mysql-$(MYSQL_VERSION)/lib
 
 
 INSTALL_PARMS := install_root=/../
@@ -53,39 +53,39 @@ build:
 	$(MAKE) $(MAKEARGS)  makefiles \
 	OPT="-O2" \
 	DEBUG="-g" \
-	CCARGS='-DDEF_COMMAND_DIR=\"/opt/zimbra/postfix-$(POSTFIX_VERSION)/sbin\" \
-	-DDEF_DAEMON_DIR=\"/opt/zimbra/postfix-$(POSTFIX_VERSION)/libexec\" \
-	-DDEF_CONFIG_DIR=\"/opt/zimbra/postfix-$(POSTFIX_VERSION)/conf\" \
-	-DDEF_QUEUE_DIR=\"/opt/zimbra/data/postfix/spool\" \
-	-DDEF_SENDMAIL_PATH=\"/opt/zimbra/postfix-$(POSTFIX_VERSION)/sbin/sendmail\" \
-	-DDEF_NEWALIAS_PATH=\"/opt/zimbra/postfix-$(POSTFIX_VERSION)/sbin/newaliases\" \
-	-DDEF_MAILQ_PATH=\"/opt/zimbra/postfix-$(POSTFIX_VERSION)/sbin/mailq\" \
-	-DDEF_MANPAGE_DIR=\"/opt/zimbra/postfix-$(POSTFIX_VERSION)/man\" \
+	CCARGS='-DDEF_COMMAND_DIR=\"$(ZIMBRA_HOME)/postfix-$(POSTFIX_VERSION)/sbin\" \
+	-DDEF_DAEMON_DIR=\"$(ZIMBRA_HOME)/postfix-$(POSTFIX_VERSION)/libexec\" \
+	-DDEF_CONFIG_DIR=\"$(ZIMBRA_HOME)/postfix-$(POSTFIX_VERSION)/conf\" \
+	-DDEF_QUEUE_DIR=\"$(ZIMBRA_HOME)/data/postfix/spool\" \
+	-DDEF_SENDMAIL_PATH=\"$(ZIMBRA_HOME)/postfix-$(POSTFIX_VERSION)/sbin/sendmail\" \
+	-DDEF_NEWALIAS_PATH=\"$(ZIMBRA_HOME)/postfix-$(POSTFIX_VERSION)/sbin/newaliases\" \
+	-DDEF_MAILQ_PATH=\"$(ZIMBRA_HOME)/postfix-$(POSTFIX_VERSION)/sbin/mailq\" \
+	-DDEF_MANPAGE_DIR=\"$(ZIMBRA_HOME)/postfix-$(POSTFIX_VERSION)/man\" \
 	-DDEF_HTML_DIR=\"no\" \
 	-DDEF_README_DIR=\"no\" \
-	-DDEF_SENDMAIL_PATH=\"/opt/zimbra/postfix-$(POSTFIX_VERSION)/sbin/sendmail\" \
-	-DDEF_DATA_DIR=\"/opt/zimbra/data/postfix/data\" \
+	-DDEF_SENDMAIL_PATH=\"$(ZIMBRA_HOME)/postfix-$(POSTFIX_VERSION)/sbin/sendmail\" \
+	-DDEF_DATA_DIR=\"$(ZIMBRA_HOME)/data/postfix/data\" \
 	-DUSE_SASL_AUTH \
 	-DUSE_CYRUS_SASL \
 	-DHAS_LDAP -DHAS_MYSQL -DUSE_TLS $(DBINC) $(PCRE_DEF) $(PCRE_INCLUDE) $(FD_SIZE) \
 	$(URANDOM) \
 	-DUSE_LDAP_SASL \
-	-I/opt/zimbra/openldap-$(LDAP_VERSION)/include \
+	-I$(ZIMBRA_HOME)/openldap-$(LDAP_VERSION)/include \
 	-I$(MYSQL_INC) \
-	-I/opt/zimbra/openssl-$(OPENSSL_VERSION)/include \
-	-I/opt/zimbra/cyrus-sasl-$(CYRUS_VERSION)/include/sasl -I/usr/include' \
-	AUXLIBS='$(EXTRALIBS) -L/opt/zimbra/cyrus-sasl-$(CYRUS_VERSION)/lib \
-	$(DBLIB) -L/opt/zimbra/openldap-$(LDAP_VERSION)/lib $(PCRE_LIB) \
+	-I$(ZIMBRA_HOME)/openssl-$(OPENSSL_VERSION)/include \
+	-I$(ZIMBRA_HOME)/cyrus-sasl-$(CYRUS_VERSION)/include/sasl -I/usr/include' \
+	AUXLIBS='$(EXTRALIBS) -L$(ZIMBRA_HOME)/cyrus-sasl-$(CYRUS_VERSION)/lib \
+	$(DBLIB) -L$(ZIMBRA_HOME)/openldap-$(LDAP_VERSION)/lib $(PCRE_LIB) \
 	-lldap -llber \
 	-L$(MYSQL_LIB) \
-	-L/opt/zimbra/openssl-$(OPENSSL_VERSION)/lib \
+	-L$(ZIMBRA_HOME)/openssl-$(OPENSSL_VERSION)/lib \
 	-lmysqlclient -lz -lm -L$(SYSTEM_LIB) -lsasl2 -lpthread -lssl -lcrypto'; \
 	LD_RUN_PATH=$(LD_RUN_PATH) $(MAKE) $(MAKEARGS);)
 
 install:
 	(cd postfix-$(POSTFIX_VERSION); \
 	 $(MAKE) non-interactive-package $(INSTALL_PARMS); \
-	sed -e 's|postconf|/opt/zimbra/bin/postconf|' auxiliary/qshape/qshape.pl > $(ZIMBRA_HOME)/postfix-$(POSTFIX_VERSION)/sbin/qshape.pl;\
+	sed -e 's|postconf|$(ZIMBRA_HOME)/bin/postconf|' auxiliary/qshape/qshape.pl > $(ZIMBRA_HOME)/postfix-$(POSTFIX_VERSION)/sbin/qshape.pl;\
 	chmod a+rx $(ZIMBRA_HOME)/postfix-$(POSTFIX_VERSION)/sbin/qshape.pl;)
 	(cd $(ZIMBRA_HOME); ln -s postfix-$(POSTFIX_VERSION) postfix)
 
