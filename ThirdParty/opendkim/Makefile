@@ -36,7 +36,7 @@ build:
 	$(PATCH) \
 	$(LDFLAGS) \
 	LD_LIBRARY_PATH=$(OPENSSL_LIB_DIR):$(CYRUS_LIB_DIR):$(LIBTOOL_LIB_DIR) \
-	ac_cv_path_SENDMAIL_PATH=/opt/zimbra/postfix/sbin/sendmail \
+	ac_cv_path_SENDMAIL_PATH=$(ZIMBRA_HOME)/postfix/sbin/sendmail \
 	CPPFLAGS="-I$(ZIMBRA_HOME)/libxml2/include/libxml2 -I$(ZIMBRA_HOME)/cyrus-sasl-$(CYRUS_VERSION)/include -I$(ZIMBRA_HOME)/libxml2/include -I$(ZIMBRA_HOME)/curl/include \
 		  -I$(ZIMBRA_HOME)/openssl-$(OPENSSL_VERSION)/include -I$(ZIMBRA_HOME)/libtool-$(LIBTOOL_VERSION)/include $(CPPFLAG)" \
 	CFLAGS="-g -O0" \
@@ -54,15 +54,15 @@ build:
 	--enable-default_sender \
 	--enable-rpath \
 	--enable-arlib \
-	--with-openssl=/opt/zimbra/openssl \
-	--with-milter=/opt/zimbra/sendmail \
-	--with-libmemcached=/opt/zimbra/libmemcached \
-	--with-openldap=/opt/zimbra/openldap \
-	--with-sasl=/opt/zimbra/cyrus-sasl \
-	--with-libcurl=/opt/zimbra/curl \
-	--with-mdb=/opt/zimbra/openldap \
+	--with-openssl=$(ZIMBRA_HOME)/openssl \
+	--with-milter=$(ZIMBRA_HOME)/sendmail \
+	--with-libmemcached=$(ZIMBRA_HOME)/libmemcached \
+	--with-openldap=$(ZIMBRA_HOME)/openldap \
+	--with-sasl=$(ZIMBRA_HOME)/cyrus-sasl \
+	--with-libcurl=$(ZIMBRA_HOME)/curl \
+	--with-mdb=$(ZIMBRA_HOME)/openldap \
 	--without-db \
-	--with-libxml2=/opt/zimbra/libxml2; \
+	--with-libxml2=$(ZIMBRA_HOME)/libxml2; \
 	LD_RUN_PATH=$(OPENSSL_LIB_DIR):$(CYRUS_LIB_DIR):$(LIBTOOL_LIB_DIR) $(MAKE) $(MAKEARGS); \
 	LD_RUN_PATH=$(OPENSSL_LIB_DIR):$(CYRUS_LIB_DIR):$(LIBTOOL_LIB_DIR) $(MAKE) install STRIP="";)
 	(cd $(ZIMBRA_HOME); ln -s opendkim-$(DKIM_VERSION) opendkim)

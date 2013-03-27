@@ -18,9 +18,9 @@ files	:= $(wildcard src/httpd-$(HTTPD_VERSION).tar.bz2)
 aprsrc	:= $(wildcard src/apr-$(APR_VERSION).tar.bz2)
 aprutilsrc	:= $(wildcard src/apr-util-$(APR_UTIL_VERSION).tar.bz2)
 
-LDFLAGS	:=	LDFLAGS="-L/opt/zimbra/convertd/lib -R/opt/zimbra/convertd/lib -L/opt/zimbra/openssl-$(OPENSSL_VERSION)/lib -R/opt/zimbra/openssl-$(OPENSSL_VERSION)/lib"
+LDFLAGS	:=	LDFLAGS="-L$(ZIMBRA_HOME)/convertd/lib -R$(ZIMBRA_HOME)/convertd/lib -L$(ZIMBRA_HOME)/openssl-$(OPENSSL_VERSION)/lib -R$(ZIMBRA_HOME)/openssl-$(OPENSSL_VERSION)/lib"
 ifeq ($(BUILD_PLATFORM), UBUNTU12_64)
-LDFLAGS	:=	LDFLAGS="-L/opt/zimbra/convertd/lib -Wl,-rpath,/opt/zimbra/convertd/lib -L/opt/zimbra/openssl-$(OPENSSL_VERSION)/lib -Wl,-rpath,/opt/zimbra/openssl-$(OPENSSL_VERSION)/lib"
+LDFLAGS	:=	LDFLAGS="-L$(ZIMBRA_HOME)/convertd/lib -Wl,-rpath,$(ZIMBRA_HOME)/convertd/lib -L$(ZIMBRA_HOME)/openssl-$(OPENSSL_VERSION)/lib -Wl,-rpath,$(ZIMBRA_HOME)/openssl-$(OPENSSL_VERSION)/lib"
 endif
 
 all: checksrc allclean build check
@@ -40,7 +40,7 @@ build:
 	mv apr-$(APR_VERSION) apr;)
 	(cd httpd-$(HTTPD_VERSION)/srclib; tar xfj ../../src/apr-util-$(APR_UTIL_VERSION).tar.bz2; \
 	mv apr-util-$(APR_UTIL_VERSION) apr-util;)
-	(cd httpd-$(HTTPD_VERSION); $(ENVMOD) $(LDFLAGS) CFLAGS="-g -O2" ./configure --prefix=/opt/zimbra/httpd-$(HTTPD_VERSION) --enable-so --with-included-apr -with-mpm=event --enable-mpms-shared="all" --enable-ssl --with-ssl=/opt/zimbra/openssl-$(OPENSSL_VERSION); $(MAKE) $(MAKEARGS); $(MAKE) install)
+	(cd httpd-$(HTTPD_VERSION); $(ENVMOD) $(LDFLAGS) CFLAGS="-g -O2" ./configure --prefix=$(ZIMBRA_HOME)/httpd-$(HTTPD_VERSION) --enable-so --with-included-apr -with-mpm=event --enable-mpms-shared="all" --enable-ssl --with-ssl=$(ZIMBRA_HOME)/openssl-$(OPENSSL_VERSION); $(MAKE) $(MAKEARGS); $(MAKE) install)
 
 tar:
 	mkdir -p $(P4_ROOT)/ThirdPartyBuilds/$(BUILD_PLATFORM)/apache-httpd

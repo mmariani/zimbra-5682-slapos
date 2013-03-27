@@ -45,7 +45,7 @@ checksrc:
 build:
 	tar xzf src/aspell-$(ASPELL_VERSION).tar.gz
 	(cd aspell-$(ASPELL_VERSION); \
-	./configure --prefix=/opt/zimbra/aspell-$(ASPELL_VERSION); $(MAKE) $(MAKEARGS))
+	./configure --prefix=$(ZIMBRA_HOME)/aspell-$(ASPELL_VERSION); $(MAKE) $(MAKEARGS))
 
 install:
 	(cd aspell-$(ASPELL_VERSION); $(MAKE) $(MAKEARGS) install)
