@@ -20,10 +20,11 @@ usage() {
   exit 1
 }
 
-if [ x`whoami` != xzimbra ]; then
-  echo Error: must be run as zimbra user
-  exit 1
-fi
+## XXX SLAPOS user will not be 'zimbra'
+#if [ x`whoami` != xzimbra ]; then
+#  echo Error: must be run as zimbra user
+#  exit 1
+#fi
 
 source `dirname $0`/../bin/zmshutil || exit 1
 zmsetvars \
