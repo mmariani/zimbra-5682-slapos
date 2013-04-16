@@ -31,7 +31,6 @@ zmsetvars -f \
   zimbra_java_home \
   zimbra_uid \
   zimbra_gid \
-  zimbra_user \
   zimbra_zmcertmgr_expiration_threshold \
   ldap_is_master \
   ldap_host \
@@ -183,7 +182,7 @@ getHostInfo() {
 
 isLdapRunning() {
 
-  su - ${zimbra_user} -c "/opt/zimbra/bin/ldap status > /dev/null 2>&1"
+  /opt/zimbra/bin/ldap status > /dev/null 2>&1
   LDAP_IS_RUNNING=$?
   
 }
@@ -210,7 +209,7 @@ saveConfigKey() {
   #fi
 
   echo -n "** Saving $location config key $key..."
-  su - ${zimbra_user} -c "${zimbra_home}/bin/zmprov -m -l -- ${zmprov_opts} ${key} \"$content\" 2> /dev/null"
+  ${zimbra_home}/bin/zmprov -m -l -- ${zmprov_opts} ${key} \"$content\" 2> /dev/null
   if [ $? = 0 ]; then
     echo "done."
   else
@@ -239,7 +238,7 @@ loadConfigKey() {
   chown ${zimbra_uid} ${tmpfile}
   if [ ! -s ${file} ]; then
     echo -n "** Retrieving $location config key $key..."
-    su - ${zimbra_user} -c "${zimbra_home}/bin/zmprov -m -l -- ${zmprov_opts} ${key} | sed  -e 's/^${key}: //' > ${tmpfile} 2> /dev/null" 2>/dev/null && mv -f ${tmpfile} ${file} 2> /dev/null
+    ( ${zimbra_home}/bin/zmprov -m -l -- ${zmprov_opts} ${key} | sed  -e 's/^${key}: //' > ${tmpfile} 2> /dev/null ) && mv -f ${tmpfile} ${file}
     if [ $? = 0 -a -s "${file}" ]; then
       echo "done."
     else
@@ -1008,7 +1007,7 @@ createCert() {
 
   if [ x"${ALLSERVERS}" = "x-allserver" ]; then
     # merge these with cli specified. -bp
-    subject_alt_names=`su - ${zimbra_user} -c "${zimbra_home}/bin/zmprov -m -l gas | xargs "`
+    subject_alt_names=`${zimbra_home}/bin/zmprov -m -l gas | xargs `
     createCSR self -new -keysize ${KEYSIZE}
     shift
   elif [ ! -s "${server_csr}" -o x"${IS_NEW_CRT}" = "x-new" ]; then
