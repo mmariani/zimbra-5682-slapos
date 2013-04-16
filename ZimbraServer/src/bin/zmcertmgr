@@ -14,10 +14,11 @@
 # ***** END LICENSE BLOCK *****
 # 
 
-if [ x`whoami` != "xroot" ]; then
-  echo "$0 must be run as user root"
-  exit 1
-fi
+## XXX SLAPOS need to run this as regular user
+#if [ x`whoami` != "xroot" ]; then
+#  echo "$0 must be run as user root"
+#  exit 1
+#fi
 umask 027
 
 platform=$(/opt/zimbra/libexec/get_plat_tag.sh 2> /dev/null := UNKNOWN)
@@ -30,6 +31,7 @@ zmsetvars -f \
   zimbra_java_home \
   zimbra_uid \
   zimbra_gid \
+  zimbra_user \
   zimbra_zmcertmgr_expiration_threshold \
   ldap_is_master \
   ldap_host \
@@ -40,7 +42,7 @@ zmsetvars -f \
   mailboxd_truststore_password \
   postfix_smtpd_tls_cert_file \
   postfix_smtpd_tls_key_file
-  
+
 export JAVA_HOME=${zimbra_java_home}
 
 java_version=$(${zimbra_java_home}/bin/java -version 2>&1 | grep "java version" | sed -e 's/"//g' | awk '{print $NF}' | awk -F_ '{print $1}')
@@ -181,7 +183,7 @@ getHostInfo() {
 
 isLdapRunning() {
 
-  su - zimbra -c "/opt/zimbra/bin/ldap status > /dev/null 2>&1"
+  su - ${zimbra_user} -c "/opt/zimbra/bin/ldap status > /dev/null 2>&1"
   LDAP_IS_RUNNING=$?
   
 }
@@ -208,7 +210,7 @@ saveConfigKey() {
   #fi
 
   echo -n "** Saving $location config key $key..."
-  su - zimbra -c "${zimbra_home}/bin/zmprov -m -l -- ${zmprov_opts} ${key} \"$content\" 2> /dev/null"
+  su - ${zimbra_user} -c "${zimbra_home}/bin/zmprov -m -l -- ${zmprov_opts} ${key} \"$content\" 2> /dev/null"
   if [ $? = 0 ]; then
     echo "done."
   else
@@ -237,7 +239,7 @@ loadConfigKey() {
   chown ${zimbra_uid} ${tmpfile}
   if [ ! -s ${file} ]; then
     echo -n "** Retrieving $location config key $key..."
-    su - zimbra -c "${zimbra_home}/bin/zmprov -m -l -- ${zmprov_opts} ${key} | sed  -e 's/^${key}: //' > ${tmpfile} 2> /dev/null" 2>/dev/null && mv -f ${tmpfile} ${file} 2> /dev/null
+    su - ${zimbra_user} -c "${zimbra_home}/bin/zmprov -m -l -- ${zmprov_opts} ${key} | sed  -e 's/^${key}: //' > ${tmpfile} 2> /dev/null" 2>/dev/null && mv -f ${tmpfile} ${file} 2> /dev/null
     if [ $? = 0 -a -s "${file}" ]; then
       echo "done."
     else
@@ -1006,7 +1008,7 @@ createCert() {
 
   if [ x"${ALLSERVERS}" = "x-allserver" ]; then
     # merge these with cli specified. -bp
-    subject_alt_names=`su - zimbra -c "${zimbra_home}/bin/zmprov -m -l gas | xargs "`
+    subject_alt_names=`su - ${zimbra_user} -c "${zimbra_home}/bin/zmprov -m -l gas | xargs "`
     createCSR self -new -keysize ${KEYSIZE}
     shift
   elif [ ! -s "${server_csr}" -o x"${IS_NEW_CRT}" = "x-new" ]; then
