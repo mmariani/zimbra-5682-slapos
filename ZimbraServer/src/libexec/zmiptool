@@ -23,10 +23,11 @@ our %loaded = ();
 
 my $id = getpwuid($<);
 chomp $id;
-if ($id ne "zimbra") {
-    print STDERR "Error: must be run as zimbra user\n";
-    exit (1);
-}
+## XXX SLAPOS user will not be 'zimbra'
+#if ($id ne "zimbra") {
+#    print STDERR "Error: must be run as zimbra user\n";
+#    exit (1);
+#}
 
 my ($help, $dryrun, $mode);
 

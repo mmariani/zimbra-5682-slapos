@@ -14,12 +14,11 @@
 # ***** END LICENSE BLOCK *****
 # 
 
-
-
-if [ x`whoami` != "xzimbra" ]; then
-  echo "$0 must be run as user zimbra"
-  exit 1
-fi
+## XXX SLAPOS user will not be 'zimbra'
+# if [ x`whoami` != "xzimbra" ]; then
+#   echo "$0 must be run as user zimbra"
+#   exit 1
+# fi
 
 source `dirname $0`/zmshutil || exit 1
 zmsetvars \
