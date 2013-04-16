@@ -209,7 +209,7 @@ saveConfigKey() {
   #fi
 
   echo -n "** Saving $location config key $key..."
-  ${zimbra_home}/bin/zmprov -m -l -- ${zmprov_opts} ${key} \"$content\" 2> /dev/null
+  ${zimbra_home}/bin/zmprov -m -l -- ${zmprov_opts} ${key} "$content" 2> /dev/null
   if [ $? = 0 ]; then
     echo "done."
   else
