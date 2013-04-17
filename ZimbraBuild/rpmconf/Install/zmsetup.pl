@@ -45,9 +45,13 @@ progress("Operations logged to $logfile\n");
 our $ZMPROV = "/opt/zimbra/bin/zmprov -r -m -l";
 our $SU;
 if ($platform =~ /MACOSXx86_10/) {
-  $SU = "su - zimbra -c -l ";
+  # XXX SLAPOS must run as current user
+  #$SU = "su - zimbra -c -l ";
+  $SU = "bash -c ";
 } else {
-  $SU = "su - zimbra -c ";
+  # XXX SLAPOS must run as current user
+  #$SU = "su - zimbra -c ";
+  $SU = "bash -c ";
 }
 
 if ($platform =~ /MACOSX/ && $platform ne "MACOSXx86_10.6" && $platform ne "MACOSXx86_10.7") {
@@ -151,7 +155,8 @@ my $ssl_cert_type = "self";
 
 my @interfaces = ();
 
-($>) and usage();
+## XXX SLAPOS disable root check
+#($>) and usage();
 
 getopts("c:hd", \%options) or usage();
 

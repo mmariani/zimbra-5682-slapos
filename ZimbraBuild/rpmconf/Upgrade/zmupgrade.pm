@@ -50,9 +50,13 @@ chomp $platform;
 my $addr_space = (($platform =~ m/\w+_(\d+)/) ? "$1" : "32");
 my $su;
 if ($platform =~ /MACOSXx86_10/) {
-  $su = "su - zimbra -c -l";
+  # XXX SLAPOS must run as current user
+  #$su = "su - zimbra -c -l";
+  $su = "bash -c ";
 } else {
-  $su = "su - zimbra -c";
+  # XXX SLAPOS must run as current user
+  #$su = "su - zimbra -c";
+  $su = "bash -c ";
 }
 
 my $hn = `$su "${zmlocalconfig} -m nokey zimbra_server_hostname"`;
