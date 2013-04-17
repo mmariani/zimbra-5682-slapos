@@ -211,7 +211,8 @@ PERL_LIBS 	:= \
 	Net::DNS::Resolver::Programmable \
 	Geography::Countries \
 	IP::Country \
-	DBD::SQLite
+	DBD::SQLite \
+	Devel::Trace
 
 NET_SSLeay := \
 	Net-SSLeay-1.52
