@@ -24,10 +24,11 @@ zmsetvars \
   zimbra_user \
   zimbra_tmp_directory 
 
-if [ x`whoami` != "x${zimbra_user}" ]; then
-  echo Error: must be run as zimbra user
-  exit 1
-fi
+## XXX SLAPOS must run as regular user
+#if [ x`whoami` != "x${zimbra_user}" ]; then
+#  echo Error: must be run as zimbra user
+#  exit 1
+#fi
 
 if [ ! -d ${mysql_directory}/bin ]; then
   exit 0
