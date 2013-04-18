@@ -18,7 +18,8 @@ use strict;
 
 my $id = `id -u -n`;
 chomp $id;
-if ($id ne "zimbra") {die "Run as the zimbra user!\n";}
+## XXX SLAPOS must run as regular user
+#if ($id ne "zimbra") {die "Run as the zimbra user!\n";}
 
 our $zimbra_home = "/opt/zimbra";
 
