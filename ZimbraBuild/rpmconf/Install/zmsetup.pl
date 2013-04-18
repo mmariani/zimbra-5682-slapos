@@ -115,9 +115,15 @@ my %packageServiceMap = (
   convertd  => "zimbra-convertd",
 );
 
-my %installedPackages = ();
+my %installedPackages = (
+  "zimbra-core" => "zimbra-core",
+  "zimbra-store" => "zimbra-store",
+);
 my %prevInstalledPackages = ();
-my %enabledPackages = ();
+my %enabledPackages = (
+  "zimbra-core" => "Enabled",
+  "zimbra-store" => "Enabled",
+);
 my %enabledServices = ();
 
 my $zimbraHome = "/opt/zimbra";
