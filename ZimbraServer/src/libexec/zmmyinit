@@ -14,10 +14,11 @@
 # ***** END LICENSE BLOCK *****
 # 
 
-if [ x`whoami` != "xzimbra" ]; then
-  echo "Error: must be run as user zimbra"
-  exit 1
-fi
+## XXX SLAPOS must run as regular user
+#if [ x`whoami` != "xzimbra" ]; then
+#  echo "Error: must be run as user zimbra"
+#  exit 1
+#fi
 
 usage() {
   echo "$0 [--help] [--sql_root_pw <password>] [--mysql_memory_percent 30]"
