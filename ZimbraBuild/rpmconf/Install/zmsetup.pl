@@ -4881,13 +4881,15 @@ sub configLCValues {
   setLocalConfig ("ldap_port", "$config{LDAPPORT}");
   setLocalConfig ("ldap_host", "$config{LDAPHOST}");
 
-  my $uid = `id -u zimbra`;
+  my $uid = `id -u`;
   chomp $uid;
-  my $gid = `id -g zimbra`;
+  my $gid = `id -g`;
   chomp $gid;
+  my $username = `id -un`;
+  chomp $username;
   setLocalConfig ("zimbra_uid", $uid);
   setLocalConfig ("zimbra_gid", $gid);
-  setLocalConfig ("zimbra_user", "zimbra");
+  setLocalConfig ("zimbra_user", $username);
 
   if (defined $config{AVUSER}) {
     setLocalConfig ("av_notify_user", $config{AVUSER})
