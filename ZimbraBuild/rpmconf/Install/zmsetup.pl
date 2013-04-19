@@ -115,15 +115,9 @@ my %packageServiceMap = (
   convertd  => "zimbra-convertd",
 );
 
-my %installedPackages = (
-  "zimbra-core" => "zimbra-core",
-  "zimbra-store" => "zimbra-store",
-);
+my %installedPackages = ();
 my %prevInstalledPackages = ();
-my %enabledPackages = (
-  "zimbra-core" => "Enabled",
-  "zimbra-store" => "Enabled",
-);
+my %enabledPackages = ();
 my %enabledServices = ();
 
 my $zimbraHome = "/opt/zimbra";
@@ -612,6 +606,11 @@ sub isEnabled {
 
 sub isInstalled {
   my $pkg = shift;
+
+  # XXX SLAPOS hardcode the installed packages.
+  if ($pkg eq "zimbra-store" || $pkg eq "zimbra-core") {
+    return 1;
+  }
 
   my $pkgQuery;
 
