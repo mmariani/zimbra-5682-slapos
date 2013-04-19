@@ -238,7 +238,7 @@ loadConfigKey() {
   chown ${zimbra_uid} ${tmpfile}
   if [ ! -s ${file} ]; then
     echo -n "** Retrieving $location config key $key..."
-    ( ${zimbra_home}/bin/zmprov -m -l -- ${zmprov_opts} ${key} | sed  -e 's/^${key}::* //' > ${tmpfile} 2> /dev/null ) && mv -f ${tmpfile} ${file}
+    ( ${zimbra_home}/bin/zmprov -m -l -- ${zmprov_opts} ${key} | sed  -e "s/^${key}::* //" > ${tmpfile} 2> /dev/null ) && mv -f ${tmpfile} ${file}
     if [ $? = 0 -a -s "${file}" ]; then
       echo "done."
     else
