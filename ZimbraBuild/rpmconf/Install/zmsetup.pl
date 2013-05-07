@@ -607,10 +607,13 @@ sub isEnabled {
 sub isInstalled {
   my $pkg = shift;
 
-  # XXX SLAPOS hardcode the installed packages.
-  if ($pkg eq "zimbra-store" || $pkg eq "zimbra-core") {
-    return 1;
-  }
+  if (exists $ENV{'ZIMBRA_INSTALLED_PKGS'}) {
+    for my $p ( split(/ /, $ENV{'ZIMBRA_INSTALLED_PKGS'}) ) {
+      if ($p eq $pkg) {
+        return 1;
+      };
+    };
+  };
 
   my $pkgQuery;
 
