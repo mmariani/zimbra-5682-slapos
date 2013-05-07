@@ -263,7 +263,8 @@ if (-d "/opt/zimbra/log") {
   main::progress("Moving $logfile to /opt/zimbra/log\n");
   my $dstlog = "zmsetup.".getDateStamp().".txt";
   system("cp -f $logfile /opt/zimbra/log/$dstlog");
-  system("chown zimbra:zimbra /opt/zimbra/log/$dstlog");
+  # XXX SLAPOS must belong to current user
+  # system("chown zimbra:zimbra /opt/zimbra/log/$dstlog");
 }
 
 ################################################################
@@ -1275,7 +1276,8 @@ sub installLdapConfig {
     system("cp -f $config_src/cn\=config/olcDatabase\=\{2\}mdb/olcOverlay\=\{2\}noopsrch.ldif $config_dest/cn\=config/olcDatabase\=\{2\}mdb/olcOverlay\=\{2\}noopsrch.ldif");
     `chmod 600 $config_dest/cn\=config.ldif`;
     `chmod 600 $config_dest/cn\=config/*.ldif`;
-    `chown -R zimbra:zimbra $config_dest`;
+    # XXX SLAPOS must belong to current user
+    # `chown -R zimbra:zimbra $config_dest`;
     main::progress("done.\n");
   }
 }
@@ -3091,7 +3093,8 @@ sub setLicenseFile {
   system("cp $config{LICENSEFILE} /opt/zimbra/conf/ZCSLicense.xml")
     if ($config{LICENSEFILE} ne "/opt/zimbra/conf/ZCSLicense.xml");
   if ( -f "/opt/zimbra/conf/ZCSLicense.xml") {
-    `chown zimbra:zimbra /opt/zimbra/conf/ZCSLicense.xml`;
+    # XXX SLAPOS must belong to current user
+    # `chown zimbra:zimbra /opt/zimbra/conf/ZCSLicense.xml`;
     `chmod 444 /opt/zimbra/conf/ZCSLicense.xml`;
   }
 }
@@ -5223,7 +5226,8 @@ sub configCreateCert {
     if ( !-f "$config{mailboxd_keystore}" && !-f "/opt/zimbra/ssl/zimbra/server/server.crt" ) {
       if (!-d "$config{mailboxd_directory}") {
         `mkdir -p $config{mailboxd_directory}/etc`;
-        `chown -R zimbra:zimbra $config{mailboxd_directory}`;
+        # XXX SLAPOS must belong to current user
+        # `chown -R zimbra:zimbra $config{mailboxd_directory}`;
         `chmod 744 $config{mailboxd_directory}/etc`;
       }
       progress ( "Creating SSL zimbra-store certificate..." );
@@ -6089,7 +6093,8 @@ sub configInstallZimlets {
 
   mkdir($zimlet_directory)
     if (! -d $zimlet_directory);
-  chown($uid,$gid, $zimlet_directory);
+  # XXX SLAPOS must belong to current user
+  # chown($uid,$gid, $zimlet_directory);
   chmod(0755, $zimlet_directory);
 
   system("/bin/rm -rf $zimlet_properties")
@@ -6680,7 +6685,8 @@ sub applyConfig {
   postinstall::configure();
 
   `touch /opt/zimbra/.bash_history`;
-  `chown zimbra:zimbra /opt/zimbra/.bash_history`;
+  # XXX SLAPOS must belong to current user
+  # `chown zimbra:zimbra /opt/zimbra/.bash_history`;
 
   if (isFoss() && !$newinstall) {
     startLdap() if ($ldapConfigured);
@@ -6690,10 +6696,11 @@ sub applyConfig {
   if ($config{STARTSERVERS} eq "yes") {
 
     # bug 6270 
-    if (isEnabled("zimbra-store")) {
-      `chown zimbra:zimbra /opt/zimbra/redolog/redo.log`
-        if (($platform =~ m/DEBIAN/ || $platform =~ m/UBUNTU/) && ! $newinstall);
-    }
+    # XXX SLAPOS must belong to current user
+    # if (isEnabled("zimbra-store")) {
+    #   `chown zimbra:zimbra /opt/zimbra/redolog/redo.log`
+    #     if (($platform =~ m/DEBIAN/ || $platform =~ m/UBUNTU/) && ! $newinstall);
+    # }
 
     progress ( "Starting servers..." );
     if ($main::platform =~ /MACOSX/) {
@@ -6755,7 +6762,8 @@ sub applyConfig {
     main::progress("Moving $logfile to /opt/zimbra/log\n");
     my $dstlog = "zmsetup.".getDateStamp().".txt";
     system("cp -f $logfile /opt/zimbra/log/$dstlog");
-    system("chown zimbra:zimbra /opt/zimbra/log/$dstlog");
+    # XXX SLAPOS must belong to current user
+    # system("chown zimbra:zimbra /opt/zimbra/log/$dstlog");
   } else {
     progress ( "Operations logged to $logfile\n" );
   }
