@@ -20,10 +20,11 @@ use File::Basename;
 
 my $progname = basename($0);
 # Need to be root to read the master.pid
-if ($> != 0) {
-  print "$0 must be run as root.\n";
-  exit 1;
-}
+# XXX SLAPOS must run as regular user
+#if ($> != 0) {
+#  print "$0 must be run as root.\n";
+#  exit 1;
+#}
 
 my $zimbra_home = getLocalConfig("zimbra_home");
 # Exit if software-only node.
