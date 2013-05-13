@@ -19,6 +19,7 @@ DBLIB := -L$(ZIMBRA_HOME)/bdb-$(BDB_VERSION)/lib -ldb
 POSTFIX_TGZ_TARGET := \
 	$(P4_ROOT)/ThirdPartyBuilds/$(BUILD_PLATFORM)/postfix/postfix-$(POSTFIX_VERSION).tgz
 BDB_PATCH	:= patch -g0 -p1 < ../patches/postfix-zimbra-bdb.patch;
+NOROOT_PATCH    := patch -g0 -p1 < ../patches/noroot.patch;
 
 PCRE_DEF := -DHAS_PCRE
 PCRE_INCLUDE := -I$(PCRE_PREFIX)/include
@@ -48,6 +49,7 @@ build:
 	(mv postfix-$(POSTFIX_RELEASE) postfix-$(POSTFIX_VERSION); \
 	cd postfix-$(POSTFIX_VERSION); \
 	$(BDB_PATCH) \
+	$(NOROOT_PATCH) \
 	$(PATCH) \
 	patch -g0 -p1 < ../patches/postfix-main-cf-zimbra.patch; \
 	$(MAKE) $(MAKEARGS)  makefiles \
