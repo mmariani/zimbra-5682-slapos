@@ -151,4 +151,5 @@ bind_pw = ${ldap_postfix_password}
 timeout = 30
 EOF
 
-chgrp ${postfix_owner} ${confdir}/ldap-*.cf
+## XXX SLAPOS no need to change ownership
+#chgrp ${postfix_owner} ${confdir}/ldap-*.cf
