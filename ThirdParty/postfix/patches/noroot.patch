@@ -32,7 +32,15 @@
  
      /*
       * Parse switches.
--- 
-1.7.11.3
-
-
+--- a/src/global/mail_params.c
++++ b/src/global/mail_params.c
+@@ -709,7 +709,9 @@ void    mail_params_init()
+     check_default_privs();
+     check_mail_owner();
+     check_sgid_group();
++    /*
+     check_overlap();
++    */
+ #ifdef HAS_DB
+     dict_db_cache_size = var_db_read_buf;
+ #endif
