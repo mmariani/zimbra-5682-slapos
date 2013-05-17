@@ -1554,12 +1554,17 @@ sub setDefaults {
       $config{zimbraMtaMyNetworks} = "$tmpval";
     }
 
+    my $uid_name = `id -un`;
+    chomp $uid_name;
+    my $gid_name = `id -gn`;
+    chomp $gid_name;
+
     if ($platform =~ /MACOSXx86_10/) {
       $config{postfix_mail_owner} = "_postfix";
       $config{postfix_setgid_group} = "_postdrop";
     } else {
-      $config{postfix_mail_owner} = "postfix";
-      $config{postfix_setgid_group} = "postdrop";
+      $config{postfix_mail_owner} = "$uid_name";
+      $config{postfix_setgid_group} = "$gid_name";
     }
   }
 
