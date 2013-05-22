@@ -15,6 +15,23 @@
      errno = saved_errno;
 -}
 +*/}
+--- a/src/util/set_eugid.c
++++ b/src/util/set_eugid.c
+@@ -53,7 +53,7 @@
+ 
+ void    set_eugid(uid_t euid, gid_t egid)
+ {
+-    int     saved_errno = errno;
++/*    int     saved_errno = errno;
+ 
+     if (geteuid() != 0)
+ 	if (seteuid(0))
+@@ -67,4 +67,4 @@ void    set_eugid(uid_t euid, gid_t egid)
+     if (msg_verbose)
+ 	msg_info("set_eugid: euid %ld egid %ld", (long) euid, (long) egid);
+     errno = saved_errno;
+-}
++*/}
 --- a/src/postfix/postfix.c
 +++ b/src/postfix/postfix.c
 @@ -448,12 +448,12 @@ int     main(int argc, char **argv)
