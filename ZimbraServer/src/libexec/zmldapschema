@@ -19,10 +19,10 @@ source `dirname $0`/../bin/zmshutil || exit 1
 zmsetvars -f zimbra_home zimbra_user
 
 u=`id -un`
-if [ $u != ${zimbra_user} ]; then
-  echo "Error: must be run as ${zimbra_user} user"
-  exit 1
-fi
+#if [ $u != ${zimbra_user} ]; then
+#  echo "Error: must be run as ${zimbra_user} user"
+#  exit 1
+#fi
 
 verifyLdapInstalled() {
   echo -n "Looking for LDAP installation..."
