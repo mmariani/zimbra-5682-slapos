@@ -104,10 +104,11 @@ usage() {
   exit 1
 }
 
-if [ x`whoami` != xzimbra ]; then
-    echo Error: must be run as zimbra user
-  exit 1
-fi
+# XXX SLAPOS must run as current user
+#if [ x`whoami` != xzimbra ]; then
+#    echo Error: must be run as zimbra user
+#  exit 1
+#fi
 
 if [ ! -h "/opt/zimbra/amavisd" ]; then
     echo "Error: SpamAssassin not installed"

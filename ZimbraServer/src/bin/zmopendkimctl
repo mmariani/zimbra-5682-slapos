@@ -14,10 +14,11 @@
 # ***** END LICENSE BLOCK *****
 # 
 
-if [ x`whoami` != xzimbra ]; then
-  echo Error: must be run as zimbra user
-  exit 1
-fi
+# XXX SLAPOS must run as current user
+#if [ x`whoami` != xzimbra ]; then
+#  echo Error: must be run as zimbra user
+#  exit 1
+#fi
 
 if [ ! -L "/opt/zimbra/opendkim" ]; then
   exit 0
@@ -68,7 +69,7 @@ start()
           if [ x$1 = "x" ]; then
             rewriteconfig
           fi
-          $odk -x $config -u zimbra
+          $odk -x $config
           if [ $? != 0 ]; then
             echo "Failed to start opendkim: $?"
             exit 1
