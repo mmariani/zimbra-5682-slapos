@@ -21,6 +21,7 @@ POSTFIX_TGZ_TARGET := \
 BDB_PATCH	:= patch -g0 -p1 < ../patches/postfix-zimbra-bdb.patch;
 NOROOT_PATCH    := patch -g0 -p1 < ../patches/noroot.patch;
 SESSION_PATCH   := patch -g0 -p1 < ../patches/session.patch;
+INITGROUPS_PATCH := patch -g0 -p1 < ../patches/initgroups.patch;
 
 PCRE_DEF := -DHAS_PCRE
 PCRE_INCLUDE := -I$(PCRE_PREFIX)/include
@@ -52,6 +53,7 @@ build:
 	$(BDB_PATCH) \
 	$(NOROOT_PATCH) \
 	$(SESSION_PATCH) \
+	$(INITGROUPS_PATCH) \
 	$(PATCH) \
 	patch -g0 -p1 < ../patches/postfix-main-cf-zimbra.patch; \
 	$(MAKE) $(MAKEARGS)  makefiles \
