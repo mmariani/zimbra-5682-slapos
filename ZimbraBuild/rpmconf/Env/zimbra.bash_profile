@@ -12,7 +12,7 @@ fi
 #BASH_ENV=$HOME/.bashrc
 #export BASH_ENV
 
-USERNAME="zimbra"
+USERNAME="`id -un`"
 export USERNAME
 
 export LANG=C
