@@ -47,12 +47,13 @@ if ((! getopts('dvh', \%options)) || ($options{h})) {
 	usage();
 };
 
-my $id = getpwuid($<);
-chomp $id;
-if ($id ne "zimbra") {
-    print STDERR "Error: must be run as zimbra user\n";
-    exit (1);
-}
+# XXX SLAPOS must run as current user
+#my $id = getpwuid($<);
+#chomp $id;
+#if ($id ne "zimbra") {
+#    print STDERR "Error: must be run as zimbra user\n";
+#    exit (1);
+#}
 
 $FORMAT_LINES_PER_PAGE = 100;
 $FORMAT_FORMFEED = "\n";

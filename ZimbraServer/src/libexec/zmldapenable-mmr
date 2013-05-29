@@ -26,12 +26,13 @@ if ( ! -d "/opt/zimbra/openldap/etc" ) {
   exit(1);
 }
 
-my $id = getpwuid($<);
-chomp $id;
-if ($id ne "zimbra") {
-    print STDERR "Error: must be run as zimbra user\n";
-    exit (1);
-}
+# XXX SLAPOS must run as current user
+#my $id = getpwuid($<);
+#chomp $id;
+#if ($id ne "zimbra") {
+#    print STDERR "Error: must be run as zimbra user\n";
+#    exit (1);
+#}
 my ($help,$sid,$mmrURI,$rid);
 $sid=0;
 $rid=100;

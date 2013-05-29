@@ -26,12 +26,13 @@ if ( ! -d "/opt/zimbra/opendkim" ) {
   exit(1);
 }
 
-my $id = getpwuid($<);
-chomp $id;
-if ($id ne "zimbra") {
-  print STDERR "Error: must be run as zimbra user\n";
-  exit (1);
-}
+# XXX SLAPOS must run as current user
+#my $id = getpwuid($<);
+#chomp $id;
+#if ($id ne "zimbra") {
+#  print STDERR "Error: must be run as zimbra user\n";
+#  exit (1);
+#}
 
 my ($add, $bits, $help, $query, $update, $domain, $delete, $selector);
 

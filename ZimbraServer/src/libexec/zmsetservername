@@ -26,11 +26,12 @@ use File::Basename;
 my (%c,%loaded,%saved,$rc);
 my ($oldServerName, $newServerName, $help, $verbose, $force, $delete, $skipusers, $usersonly);
 
-my (undef, undef,$uid,$gid) = getpwnam('zimbra');
-if ($> ne $uid) {
-  print "Must be run as user zimbra.\n";
-  &usage
-}
+# XXX SLAPOS must run as current user
+#my (undef, undef,$uid,$gid) = getpwnam('zimbra');
+#if ($> ne $uid) {
+#  print "Must be run as user zimbra.\n";
+#  &usage
+#}
 
 GetOptions("help" => \$help, 
     "oldservername=s" => \$oldServerName,

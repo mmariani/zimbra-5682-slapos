@@ -53,12 +53,13 @@ our $ZMPROV = "/opt/zimbra/bin/zmprov -l 1>/dev/null";
 our $platform = `/opt/zimbra/libexec/get_plat_tag.sh`;
 chomp ($platform);
 
-my $id = getpwuid($<);
-chomp $id;
-if ($id ne "zimbra") {
-    print STDERR "Error: must be run as zimbra user\n";
-    exit (1);
-}
+# XXX SLAPOS must run as current user
+#my $id = getpwuid($<);
+#chomp $id;
+#if ($id ne "zimbra") {
+#    print STDERR "Error: must be run as zimbra user\n";
+#    exit (1);
+#}
 
 if ($options{h})  {
    usage();
