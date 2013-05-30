@@ -1,4 +1,3 @@
-<zimlet name="com_zimbra_bulkprovision" version="7.0"
 <!--
  * ***** BEGIN LICENSE BLOCK *****
  * 
@@ -15,6 +14,7 @@
  * 
  * ***** END LICENSE BLOCK *****
 -->
+<zimlet name="com_zimbra_bulkprovision" version="7.0"
 	label="${msg.label}"
 	description="${msg.description}"
 	extension="true">
