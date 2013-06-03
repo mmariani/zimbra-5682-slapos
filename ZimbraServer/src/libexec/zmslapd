@@ -14,9 +14,8 @@
 # ***** END LICENSE BLOCK *****
 # 
 
-## XXX SLAPOS: the following can only work as root
-#ulimit -n 32768
-#ulimit -c unlimited
-#ulimit -v unlimited
+ulimit -n 32768
+ulimit -c unlimited
+ulimit -v unlimited
 export LD_PRELOAD=/opt/zimbra/tcmalloc/lib/libtcmalloc_minimal.so
 exec /opt/zimbra/openldap/sbin/slapd "$@"
