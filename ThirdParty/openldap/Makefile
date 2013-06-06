@@ -59,7 +59,6 @@ build:
 	--enable-dynamic \
 	--enable-slapd \
 		--enable-modules \
-	--enable-perl=no \
 	--enable-backends=mod \
 		--disable-shell \
 		--disable-sql \

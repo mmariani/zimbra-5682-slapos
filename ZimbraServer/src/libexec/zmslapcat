@@ -13,11 +13,9 @@
 # basis, WITHOUT WARRANTY OF ANY KIND, either express or implied.
 # ***** END LICENSE BLOCK *****
 # 
-
 ulimit -n 32768
 ulimit -c unlimited
 ulimit -v unlimited
-
 export LD_PRELOAD=/opt/zimbra/tcmalloc/lib/libtcmalloc_minimal.so
 
 umask 027
