@@ -105,7 +105,7 @@ case "$1" in
         mailboxd_java_options="${mailboxd_java_options} -Dsun.net.inetaddr.ttl=${networkaddress_cache_ttl}"
       fi
       echo -n "Starting mailboxd..."
-      ${zimbra_home}/libexec/zmmailboxdmgr start \
+      authbind --deep ${zimbra_home}/libexec/zmmailboxdmgr start \
         -Dfile.encoding=UTF-8 ${mailboxd_java_options} ${spnegoJavaOptions} -Xms${javaXms}m \
         -Xmx${javaXmx}m -Xmn${javaXmn}m < /dev/null > /dev/null 2>&1
       status=$?

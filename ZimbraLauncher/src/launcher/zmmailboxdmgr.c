@@ -49,6 +49,7 @@ static const char *AllowedEnv[] = {
     "PATH",
     "LOGNAME",
     "USER",
+    "LD_PRELOAD", /* needed by authbind */
     "TZ"
 };
 
